@@ -1,59 +1,142 @@
-# de2-Ultrasonic-distance-instrumentProject #6: Ultrasonic Distance Instrument
+# Ultrasonic Distance Instrument
 
-Team Members and Contributions
+**Digital Electronics 2 Final Project**
+*Raspberry Pi Pico W MicroPython Implementation (Project #6)*
 
-Manuel BEAUZOR: [Describe contribution here]
+## 1. Problem Statement & Solution Summary
 
-Romain EON: [Describe contribution here]
+### Problem Statement
+Standard distance measurement tools often lack real-time digital readouts, visual proximity warnings, and configurable acoustic alarms. For embedded applications requiring contactless sensing, coordinating multiple data streams (I2C displays, SPI matrices, and precise timing for ultrasonic pulses) without blocking the main execution loop presents a significant architectural challenge.
 
-Roberto NATRELLA: [Describe contribution here]
+### Solution
+This project implements a fully digital, non-contact Ultrasonic Distance Instrument using the **Raspberry Pi Pico W** running MicroPython. The system features:
 
-Problem Statement and Solution Summary
+- **Real-Time Sensing:** Continuous range measurement using the HC-SR04 ultrasonic transducer.
+- **Dual Visual Interfaces:** Precise numeric distance and unit display on a 128x64 SH1106 OLED (I2C), complemented by an intuitive distance gauge on an 8x8 LED Matrix (SPI).
+- **Acoustic Alarm:** A frequency-modulated piezo buzzer that triggers when objects cross critical proximity thresholds.
+- **Interrupt-Driven UI:** A hardware-debounced tactile push button to instantly toggle between metric (cm) and imperial (inch) units.
+- **Cooperative Concurrency:** The entire system relies on the `uasyncio` framework to guarantee non-blocking task execution and responsive interfaces.
 
-This project provides a contactless, real-time distance measurement instrument powered by a Raspberry Pi Pico W and MicroPython. The system utilizes an HC-SR04 ultrasonic transducer to measure range, displaying numerical values and units (cm/inch) on a 128x64 SH1106 OLED display. Simultaneously, it drives an 8x8 LED Matrix to provide an intuitive visual proximity gauge. An acoustic warning system using a piezo buzzer alerts the user when objects cross critical thresholds, and a tactile push-button allows for dynamic unit toggling.
+---
 
-Hardware Inventory and Pin Allocation
+## 2. Team Members & Contributions
 
-Microcontroller: Raspberry Pi Pico W
+- **Manuel BEAUZOR**
+  - **Role:** [Insert specific role, e.g., Hardware Integration & Testing]
+  - **Responsibilities:** [Insert responsibilities]
+- **Romain EON**
+  - **Role:** Software Architecture & Version Control
+  - **Responsibilities:** Repository management, component drivers implementation, uasyncio loop design.
+- **Roberto NATRELLA**
+  - **Role:** [Insert specific role, e.g., Documentation & Validation]
+  - **Responsibilities:** [Insert responsibilities]
 
-Ultrasonic Sensor: HC-SR04 (Trig: GP14 / Echo: GP15)
+---
 
-OLED Display: 128x64 SH1106 (I2C0 Bus - SDA: GP4 / SCL: GP5)
+## 3. Project Structure
 
-LED Matrix: 8x8 with MAX7219 Driver (SPI0 Bus - SCK: GP16 / SS: GP17 / MOSI: GP19)
+```text
+de2-Ultrasonic-distance-instrument/
+├── docs/
+│   ├── api/
+│   ├── conf.py
+│   ├── index.rst
+│   └── week1_project6_proposal.pdf
+├── images/
+│   └── schematic.png
+├── src/
+│   ├── drivers/
+│   │   ├── button.py
+│   │   ├── buzzer.py
+│   │   ├── led_matrix.py
+│   │   ├── oled_sh1106.py
+│   │   └── ultrasonic.py
+│   ├── utils/
+│   │   └── timing.py
+│   ├── config.py
+│   └── main.py
+├── tests/
+│   ├── test_buzzer.py
+│   ├── test_matrix.py
+│   ├── test_oled.py
+│   └── test_ultrasonic.py
+├── README.md
+└── requirements.txt
+```
 
-Buzzer Module: Active/Passive Piezo Speaker (PWM Output: GP2)
+---
 
-User Control: Tactile Push Button (Digital Input: GP3)
+## 4. Hardware Inventory & Assumptions
 
-Note: Please refer to the docs/week1_project6_proposal.pdf document for the detailed hardware wiring schematic and blueprints.
+### Bill of Materials
 
-Setup and Operating Instructions
+| Quantity | Component Description | Interface / Specs | Notes |
+| :--- | :--- | :--- | :--- |
+| 1x | Raspberry Pi Pico W | RP2040 Dual-Core | 3.3V Logic Level |
+| 1x | HC-SR04 Transducer | Digital Pulse | 3.3V/5V Tolerant |
+| 1x | 128x64 SH1106 OLED | I2C (Address 0x3C) | Monochromatic Display |
+| 1x | 8x8 LED Matrix | SPI (MAX7219) | Visual distance gauge |
+| 1x | Piezo Buzzer | GPIO PWM | Active/Passive Alarm |
+| 1x | Tactile Push Button | GPIO Input | Unit toggle control |
 
-Flash the Raspberry Pi Pico W with the latest MicroPython firmware.
+### Key Assumptions & Limitations
+- The system operates entirely on 3.3V logic.
+- The ultrasonic sensor requires an unobstructed line of sight to function accurately. Range is hardware-limited (typically 2cm to 400cm).
 
-Upload the project directory structure to the Pico W. Ensure all hardware component classes are properly located in src/drivers/.
+---
 
-Install any necessary dependencies listed in requirements.txt.
+## 5. Wiring Diagram & Pinout Connection
 
-Execute src/main.py to initialize the asynchronous tasks and start the system.
+<p align="center">
+  <img src="images/schematic.png" width="650" alt="Hardware Wiring Schematic"><br>
+  <em>Figure 1: Full System Interconnect Diagram for Raspberry Pi Pico W and Peripherals.</em>
+</p>
 
-Timing and Concurrency Plan
+### Hardware Pin Mapping Table
 
-To ensure a highly responsive interactive system, the architecture avoids blocking operations and time.sleep() calls. It relies entirely on MicroPython's uasyncio cooperative concurrency framework:
+| Component | Component Pin | Pico Pin Name | Bus Function | Notes / Signal |
+| :--- | :--- | :--- | :--- | :--- |
+| **HC-SR04 Sensor** | Trig | GP14 | Digital Out | Trigger pulse |
+| | Echo | GP15 | Digital In | Echo width read |
+| **SH1106 OLED** | SDA | GP4 | I2C0 Bus | Data line |
+| | SCL | GP5 | I2C0 Bus | Clock line |
+| **LED Matrix** | CLK (SCK) | GP16 | SPI0 Bus | Serial Clock |
+| | CS (SS) | GP17 | SPI0 Bus | Chip Select |
+| | DIN (MOSI) | GP19 | SPI0 Bus | Data Input |
+| **Piezo Buzzer** | Positive (+) | GP2 | GPIO Output | PWM threshold alarm |
+| **Push Button** | Terminal 1 | GP3 | GPIO Input | Interrupt (Pull-down/up) |
 
-sensor_loop(): 100 ms (10 Hz) - Triggers the sensor and calculates distance.
+---
 
-oled_update_loop(): 200 ms (5 Hz) - Renders numeric distance and unit labels.
+## 6. Software Architecture & Classes
 
-matrix_update_loop(): 100 ms (10 Hz) - Updates the bar-graph/distance gauge.
+The codebase uses modular classes in `src/drivers/` for encapsulation and reusability:
 
-alarm_monitor_loop(): 50 ms (20 Hz) - Evaluates thresholds and triggers buzzer patterns.
+1. **`HCSR04` (`ultrasonic.py`):** Handles pulse triggering and echo timing to calculate accurate distances in both centimeters and inches.
+2. **`Matrix8x8` (`led_matrix.py`):** Encapsulates SPI communication with the MAX7219 driver to render the dynamic distance bar-graph.
+3. **`DebouncedButton` (`button.py`):** Provides non-blocking hardware interrupt handling with software debouncing to ensure clean unit-toggle inputs.
+4. **`main.py`:** Initializes the uasyncio event loop and manages concurrent execution of sensor reading, display updating, and alarm triggering tasks.
 
-button_isr_handler(): Event-driven - Debounced interrupt for unit toggling.
+---
 
-Project Outputs
+## 7. Timing & Concurrency Plan
 
-Poster Presentation: [Link to PDF poster - To be added in Week 4]
+The system relies on `uasyncio` to prevent blocking operations.
 
-Demonstration Video: [Link to video - To be added in Week 5]
+| Task Name | Target Interval | Priority | Responsibilities |
+| :--- | :--- | :--- | :--- |
+| **button_isr_handler()** | Event-driven | Interrupt | Toggle measurement units (cm/in) on hardware interrupt. |
+| **alarm_monitor_loop()** | 50 ms (20 Hz) | High | Evaluate proximity thresholds and trigger buzzer patterns. |
+| **sensor_loop()** | 100 ms (10 Hz) | High | Trigger HC-SR04, calculate distance, and buffer readings. |
+| **matrix_update_loop()** | 100 ms (10 Hz) | Medium | Update 8x8 LED Matrix distance gauge. |
+| **oled_update_loop()** | 200 ms (5 Hz) | Medium | Render numeric distance, unit label, and alert state. |
+
+---
+
+## 8. Setup & Operating Instructions
+
+1. Flash the latest MicroPython firmware onto the Raspberry Pi Pico W.
+2. Clone this repository and upload the `src/` directory to the Pico using Thonny or mpremote.
+3. Connect the hardware according to the Pin Mapping Table.
+4. Execute `src/main.py` to start the asynchronous operating loop.
+5. Press the push button to alternate between metric and imperial units.
