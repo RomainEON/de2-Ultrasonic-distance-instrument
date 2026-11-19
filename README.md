@@ -145,7 +145,21 @@ The system relies on `uasyncio` to prevent blocking operations.
 
 ---
 
-## 8. Setup & Operating Instructions
+## 8. Evidence of Testing
+
+### Individual Components Testing
+
+| **HC-SR04 Ultrasonic** ([`test_ultrasonic.py`](tests/test_ultrasonic.py)) | **SH1106 OLED** ([`test_oled.py`](tests/test_oled.py)) | **8x8 LED Matrix** ([`test_matrix.py`](tests/test_matrix.py)) |
+| :---: | :---: | :---: |
+| *Video coming soon* | *Video coming soon* | *Video coming soon* |
+
+| **Piezo Buzzer** ([`test_buzzer.py`](tests/test_buzzer.py)) | **Push Button** ([`test_button.py`](tests/test_button.py)) |
+| :---: | :---: |
+| *Video coming soon* | *Video coming soon* |
+
+---
+
+## 9. Setup & Operating Instructions
 
 1. Flash the latest MicroPython firmware onto the Raspberry Pi Pico W.
 2. Clone this repository and upload the `src/` directory to the Pico using Thonny or mpremote.
