@@ -22,14 +22,14 @@ This project implements a fully digital, non-contact Ultrasonic Distance Instrum
 ## 2. Team Members & Contributions
 
 - **Manuel BEAUZOR**
-  - **Role:** [Insert specific role, e.g., Hardware Integration & Testing]
-  - **Responsibilities:** [Insert responsibilities]
+  - **Role:** Hardware Integration & Embedded Development
+  - **Responsibilities:** Breadboard circuit assembly, wiring layout, sensor and display hardware integration, MicroPython component coding and physical verification.
 - **Romain EON**
-  - **Role:** Software Architecture & Version Control
-  - **Responsibilities:** Repository management, component drivers implementation, uasyncio loop design.
+  - **Role:** Version Control, Documentation & Software Architecture
+  - **Responsibilities:** GitHub repository management, project structure organization, technical documentation (README, Sphinx), driver curation, and `uasyncio` architecture planning.
 - **Roberto NATRELLA**
-  - **Role:** [Insert specific role, e.g., Documentation & Validation]
-  - **Responsibilities:** [Insert responsibilities]
+  - **Role:** Embedded Software & Testing Engineer
+  - **Responsibilities:** MicroPython firmware and test script development, hardware-software debugging, individual component validation, and system integration.
 
 ---
 
