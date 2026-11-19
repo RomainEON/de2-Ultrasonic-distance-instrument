@@ -133,6 +133,16 @@ The system relies on `uasyncio` to prevent blocking operations.
 | **matrix_update_loop()** | 100 ms (10 Hz) | Medium | Update 8x8 LED Matrix distance gauge. |
 | **oled_update_loop()** | 200 ms (5 Hz) | Medium | Render numeric distance, unit label, and alert state. |
 
+### Component Hardware Timings & Trigger Specifications
+
+| Component | Bus / Signal Speed | Trigger / Hardware Constraint | Software Polling Rate |
+| :--- | :--- | :--- | :--- |
+| **HC-SR04 (Ultrasonic)** | Digital Pulse | 10 µs trigger pulse; min. 60 ms cycle between readings; 30 ms timeout (~4m max) | 100 ms (10 Hz) |
+| **SH1106 (OLED)** | I2C0 (400 kHz) | Full framebuffer transfer over I2C | 200 ms (5 Hz) |
+| **MAX7219 (LED Matrix)** | SPI0 (10 MHz) | Serial shift-register update (8 rows) | 100 ms (10 Hz) |
+| **Piezo Buzzer** | GPIO PWM | Variable PWM frequency (e.g., 1–4 kHz tone) | 50 ms (20 Hz) |
+| **Push Button** | GPIO Interrupt (IRQ) | Rising-edge trigger with 200 ms software debounce window | Event-driven |
+
 ---
 
 ## 8. Setup & Operating Instructions
