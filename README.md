@@ -112,10 +112,12 @@ de2-Ultrasonic-distance-instrument/
 
 The codebase uses modular classes in `src/drivers/` for encapsulation and reusability:
 
-1. **`HCSR04` (`ultrasonic.py`):** Handles pulse triggering and echo timing to calculate accurate distances in both centimeters and inches.
-2. **`Matrix8x8` (`led_matrix.py`):** Encapsulates SPI communication with the MAX7219 driver to render the dynamic distance bar-graph.
-3. **`DebouncedButton` (`button.py`):** Provides non-blocking hardware interrupt handling with software debouncing to ensure clean unit-toggle inputs.
-4. **`main.py`:** Initializes the uasyncio event loop and manages concurrent execution of sensor reading, display updating, and alarm triggering tasks.
+1. **`HCSR04` ([`ultrasonic.py`](src/drivers/ultrasonic.py)):** Handles pulse triggering and echo timing to calculate accurate distances in both centimeters and inches.
+2. **`SH1106` ([`oled_sh1106.py`](src/drivers/oled_sh1106.py)):** Manages I2C communication to display numeric distance, units, and alert status on the 128x64 OLED screen.
+3. **`Matrix8x8` ([`led_matrix.py`](src/drivers/led_matrix.py)):** Encapsulates SPI communication with the MAX7219 driver to render the dynamic distance bar-graph.
+4. **`Buzzer` ([`buzzer.py`](src/drivers/buzzer.py)):** Controls PWM signals to generate acoustic proximity warning alarms.
+5. **`DebouncedButton` ([`button.py`](src/drivers/button.py)):** Provides non-blocking hardware interrupt handling with software debouncing to ensure clean unit-toggle inputs.
+6. **`main.py` ([`main.py`](src/main.py)):** System entry point that initializes all drivers and runs the `uasyncio` event loop to coordinate sensor readings, display updates, and alarms.
 
 ---
 
