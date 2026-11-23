@@ -161,7 +161,11 @@ The system relies on `uasyncio` to prevent blocking operations.
 ### Full System Integration Test
 
 <p align="center">
-  https://github.com/user-attachments/assets/d0361b07-4e94-468a-87bb-9b49ed7bccab 
+  
+
+https://github.com/user-attachments/assets/05b2722d-cd5d-41e0-9984-792f7c9a7c1c
+
+
   <em>Figure 2: Full system demonstration</em>
 </p>
 
