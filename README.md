@@ -89,7 +89,7 @@ de2-Ultrasonic-distance-instrument/
 ## 5. Wiring Diagram & Pinout Connection
 
 <p align="center">
-  <img src="images/schematic.png" width="650" alt="Hardware Wiring Schematic"><br>
+  <img src="images/schematic.jpg" width="650" alt="Hardware Wiring Schematic"><br>
   <em>Figure 1: Full System Interconnect Diagram for Raspberry Pi Pico W and Peripherals.</em>
 </p>
 
