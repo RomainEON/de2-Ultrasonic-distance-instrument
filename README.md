@@ -169,7 +169,7 @@ The system relies on `uasyncio` to prevent blocking operations.
 ### Full System Integration Test
 
 <p align="center">
-  <video src="https://github.com/user-attachments/assets/d0361b07-4e94-468a-87bb-9b49ed7bccab" width="600"></video><br>
+  <video src=https://github.com/user-attachments/assets/d0361b07-4e94-468a-87bb-9b49ed7bccab width="600"></video><br>
   <em>Figure 2: Full system demonstration</em>
 </p>
 
