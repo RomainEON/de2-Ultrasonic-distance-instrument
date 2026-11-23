@@ -1,5 +1,20 @@
+"""
+===============================================================================
+File:        buzzer.py
+Version:     1.0.0
+Author:      BEAUZOR Manuel
+Date:        2026-11-19
+Target:      MicroPython
+Interface:   PWM (GPIO)
+Description: High-level MicroPython API and PWM driver for passive piezo buzzers.
+             Supports frequency tones, musical notes, melodies, alert beeps,
+             and frequency sweeps.
+===============================================================================
+"""
+
 from machine import Pin, PWM
 import time
+
 
 class PassiveBuzzer:
     """

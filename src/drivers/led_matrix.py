@@ -1,12 +1,26 @@
+"""
+===============================================================================
+File:        led_matrix.py
+Version:     1.0.0
+Author:      BEAUZOR Manuel
+Date:        2026-11-19
+Target:      MicroPython
+Interface:   SPI (Default: SCK=GP18, MOSI=GP19, CS=GP17)
+Description: Low-level SPI driver and high-level API for MAX7219 8x8 LED matrix
+             modules (single or daisy-chained). Supports static text, smooth
+             scrolling, distance formatting (cm/in), and progress bars.
+===============================================================================
+"""
+
 from machine import Pin, SPI
 import framebuf
 import time
+
 
 class Max7219Matrix(framebuf.FrameBuffer):
     """
     High-level MicroPython API and SPI driver for MAX7219 8x8 LED matrix modules
     (single or daisy-chained, e.g., 32x8 4-in-1 module) on Raspberry Pi Pico W.
-    All comments and docstrings are in English.
     """
 
     # MAX7219 Register Map

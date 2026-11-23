@@ -1,3 +1,16 @@
+"""
+===============================================================================
+File:        button.py
+Version:     1.0.0
+Author:      EON Romain
+Date:        2026-11-12
+Target:      MicroPython
+Interface:   GPIO (IRQ)
+# Description: MicroPython push-button driver with software debounce filtering
+#              and hardware interrupt (IRQ) callback support.
+===============================================================================
+"""
+
 import time
 from machine import Pin
 
@@ -12,13 +25,13 @@ class DebouncedButton:
         debounce_ms: Dead time in milliseconds to ignore physical bounces
         """
         # Configure pin as input with Pull-Down resistor
-        self.pin = Pin(pin_id, Pin.IN, Pin.PULL_DOWN)
+        self.pin = Pin(pin_id, Pin.IN, Pin.PULL_UP)
         self.callback = callback
         self.debounce_ms = debounce_ms
         self.last_press = 0
         
         # Attach interrupt: triggers _isr_handler on a rising edge (button press)
-        self.pin.irq(trigger=Pin.IRQ_RISING, handler=self._isr_handler)
+        self.pin.irq(trigger=Pin.IRQ_FALLING, handler=self._isr_handler)
 
     def _isr_handler(self, pin):
         """Hardware interrupt handler called automatically on state change."""

@@ -56,6 +56,7 @@ de2-Ultrasonic-distance-instrument/
 │   ├── config.py
 │   └── main.py
 ├── tests/
+│   ├── test_button.py
 │   ├── test_buzzer.py
 │   ├── test_matrix.py
 │   ├── test_oled.py
@@ -156,6 +157,13 @@ The system relies on `uasyncio` to prevent blocking operations.
 | **Piezo Buzzer** ([`test_buzzer.py`](tests/test_buzzer.py)) | **Push Button** ([`test_button.py`](tests/test_button.py)) |
 | :---: | :---: |
 | *Video coming soon* | *Video coming soon* |
+
+### Full System Integration Test
+
+<p align="center">
+  <video src="COLLEZ_LE_LIEN_GITHUB_ICI" width="600"></video><br>
+  <em>Figure 2: Full system demonstration</em>
+</p>
 
 ---
 

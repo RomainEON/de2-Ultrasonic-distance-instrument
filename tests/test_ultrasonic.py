@@ -1,16 +1,22 @@
 from ultrasonic import HCSR04
-import time
+import time 
 
 sensor = HCSR04(trigger_pin=14, echo_pin=15, echo_timeout_us=10000)
 
-
 def main():
-    print("Measuring distance; press Ctrl+C to stop.")
+    
+    print("Press the button; press Ctrl+C to stop.")
 
     try:
         while True:
-            distance = sensor.distance_cm()
-            print(f"Distance: {distance:.1f} cm")
+            if sensor.distance_cm() >= 0:
+                distance = sensor.distance_cm() 
+                            
+                print(f"{distance:.0f} cm") 
+            
+            else:
+                print("TimeOut") 
+
             time.sleep_ms(100)
 
     except KeyboardInterrupt:
