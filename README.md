@@ -1,3 +1,7 @@
+
+
+
+
 # Ultrasonic Distance Instrument
 
 **Digital Electronics 2 Final Project**
@@ -161,7 +165,7 @@ The system relies on `uasyncio` to prevent blocking operations.
 ### Full System Integration Test
 
 <p align="center">
-  <video src="COLLEZ_LE_LIEN_GITHUB_ICI" width="600"></video><br>
+  <video src="https://github.com/user-attachments/assets/5f164aa0-739f-4245-bf20-33b1a2866048" width="600"></video><br>
   <em>Figure 2: Full system demonstration</em>
 </p>
 
